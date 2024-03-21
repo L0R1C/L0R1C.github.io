@@ -1,69 +1,73 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-<title>Matrix Rain</title>
+  <head>
+    <title>Login Page</title>
     <style>
-        * {margin: 0; padding: 0;}
-        body {background: black;}
-canvas {display: block;}
+      body {
+        font-family: Arial, sans-serif;
+        background-color: #F0F0F0;
+      }
+      form {
+        background-color: #FFFFFF;
+        width: 300px;
+        margin: 50px auto;
+        padding: 20px;
+        border-radius: 5px;
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.3);
+      }
+      input[type=text], input[type=password] {
+        width: 100%;
+        padding: 12px 20px;
+        margin: 8px 0px;
+        display: inline-block;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        box-sizing: border-box;
+      }
+      button[type=submit] {
+        background-color: #4CAF05;
+        color: white;
+        padding: 14px 20px;
+        margin: 8px 0;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        width: 100%;
+      }
+      button[type=submit]:hover {
+        background-color: #40a049;
+      }
+      h2 {
+        text-align: center;
+        color: #333333;
+      }
+      .register-link {
+        display: block;
+        text-align: center;
+        margin-top: 20px;
+      }
+      .register-link a {
+        color: #4CAF50;
+        text-decoration: none;
+      }
+      .register-link a:hover {
+        text-decoration: underline;
+      }
     </style>
 </head>
-    <body>
-    <canvas id="c"></canvas>
-    </body>
-    <script>
+  <body>
+    <form>
+      <h2>Login Form</h2>
+      <label for="username"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" name="username" required>
+      <label for="password"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" name="password" required>
+      <button type="submit">Login</button>
+      <div class="register-link">
+        <a href="#">Create New Account</a>
+      </div>
+    </form>
+  </body>
 
-var c = document.getElementById("c");
-var ctx = c.getContext("2d");
-
-//making the canvas full screen
-c.height = window.innerHeight;
-c.width = window.innerWidth;
-
-//english characters
-var english = "1001010101110101010101010010101000101011101111010101010110101010101010101110000101";
-//converting the string into an array of single characters
-english = english.split("");
-
-var font_size = 15;
-var columns = c.width/font_size; //number of columns for the rain
-//an array of drops - one per column
-var drops = [];
-//x below is the x coordinate
-//1 = y co-ordinate of the drop(same for every drop initially)
-for(var x = 0; x < columns; x++)
- drops[x] = 1; 
-
-//drawing the characters
-function draw()
-{
- //Black BG for the canvas
- //translucent BG to show trail
- ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
- ctx.fillRect(0, 0, c.width, c.height);
- 
- ctx.fillStyle = "#0F0"; //green text
- ctx.font = font_size + "px arial";
- //looping over drops
- for(var i = 0; i < drops.length; i++)
- {
- //a random chinese character to print
- var text = english[Math.floor(Math.random()*english.length)];
- //x = i*font_size, y = value of drops[i]*font_size
- ctx.fillText(text, i*font_size, drops[i]*font_size);
- 
- //sending the drop back to the top randomly after it has crossed the screen
- //adding a randomness to the reset to make the drops scattered on the Y axis
- if(drops[i]*font_size > c.height && Math.random() > 0.975)
- drops[i] = 0;
- 
- //incrementing Y coordinate
- drops[i]++;
- }
-}
-
-setInterval(draw, 33);
-    </script>
-<body>
-    </html>
+</html>
